@@ -68,4 +68,23 @@ public class RoomResource {
 
         return Response.status(Response.Status.CREATED).entity(sensor).build();
     }
+
+    @GET
+    @Path("/{id}/sensors")
+    public Response getSensors(@PathParam("id") String roomId) {
+
+        Room room = rooms.get(roomId);
+
+        if (room == null) {
+            throw new NotFoundException("Room not found");
+        }
+
+        List<Sensor> roomSensors = new ArrayList<>();
+
+        for (String sensorId : room.getSensorIds()) {
+            roomSensors.add(sensors.get(sensorId));
+        }
+
+        return Response.ok(roomSensors).build();
+    }
 }
