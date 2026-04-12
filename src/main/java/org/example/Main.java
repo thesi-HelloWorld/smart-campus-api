@@ -12,7 +12,7 @@ public class Main {
 
     public static HttpServer startServer() {
         final ResourceConfig rc = new ResourceConfig()
-                .register(HelloResource.class); // explicitly register your endpoint
+                .register(RoomResource.class); // explicitly register your endpoint
 
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
     }
@@ -20,7 +20,7 @@ public class Main {
     public static void main(String[] args) {
         final HttpServer server = startServer();
         System.out.println("Server started at " + BASE_URI);
-        System.out.println("Try: http://localhost:8080/api/v1/hello");
+        System.out.println("Try: http://localhost:8080/api/v1/rooms");
         System.out.println("Press Ctrl+C to stop...");
     }
 }
