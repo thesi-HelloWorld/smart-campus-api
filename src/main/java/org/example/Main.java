@@ -1,17 +1,26 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
+import org.glassfish.jersey.server.ResourceConfig;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+import java.net.URI;
+
+public class Main {
+
+    public static final String BASE_URI = "http://localhost:8080/api/v1/";
+
+    public static HttpServer startServer() {
+        final ResourceConfig rc = new ResourceConfig()
+                .register(HelloResource.class); // explicitly register your endpoint
+
+        return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
+    }
+
+    public static void main(String[] args) {
+        final HttpServer server = startServer();
+        System.out.println("Server started at " + BASE_URI);
+        System.out.println("Try: http://localhost:8080/api/v1/hello");
+        System.out.println("Press Ctrl+C to stop...");
     }
 }
