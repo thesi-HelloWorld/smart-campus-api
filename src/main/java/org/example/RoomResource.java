@@ -11,6 +11,8 @@ public class RoomResource {
 
     private static Map<String, Room> rooms = new HashMap<>();
 
+    private static Map<String, Sensor> sensors = new HashMap<>();
+
     @GET //shows room
     public Response getRooms() {
         return Response.ok(rooms.values()).build();
