@@ -52,4 +52,20 @@ public class RoomResource {
         rooms.remove(id);
         return Response.ok("Room deleted").build();
     }
+
+    @POST
+    @Path("/{id}/sensors")
+    public Response addSensor(@PathParam("id") String roomId, Sensor sensor) {
+
+        Room room = rooms.get(roomId);
+
+        if (room == null) {
+            throw new NotFoundException("Room not found");
+        }
+
+        sensors.put(sensor.getId(), sensor);
+        room.getSensorIds().add(sensor.getId());
+
+        return Response.status(Response.Status.CREATED).entity(sensor).build();
+    }
 }
