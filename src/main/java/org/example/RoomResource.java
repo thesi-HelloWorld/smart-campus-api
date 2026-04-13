@@ -152,4 +152,32 @@ public class RoomResource {
 
         return Response.ok("Sensor deleted").build();
     }
+
+    @PUT
+    @Path("/{roomId}/sensors/{sensorId}")
+    public Response updateSensor(
+            @PathParam("roomId") String roomId,
+            @PathParam("sensorId") String sensorId,
+            Sensor updatedSensor) {
+
+        Room room = rooms.get(roomId);
+
+        if (room == null) {
+            throw new NotFoundException("Room not found");
+        }
+
+        Sensor sensor = sensors.get(sensorId);
+
+        if (sensor == null) {
+            throw new NotFoundException("Sensor not found");
+        }
+
+        if (updatedSensor.getType() == null) {
+            throw new WebApplicationException("Invalid sensor data", 400);
+        }
+
+        sensor.setType(updatedSensor.getType());
+
+        return Response.ok(sensor).build();
+    }
 }
