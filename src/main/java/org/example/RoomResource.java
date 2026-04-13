@@ -87,4 +87,29 @@ public class RoomResource {
 
         return Response.ok(roomSensors).build();
     }
+
+    @DELETE
+    @Path("/{roomId}/sensors/{sensorId}")
+    public Response deleteSensor(
+            @PathParam("roomId") String roomId,
+            @PathParam("sensorId") String sensorId) {
+
+        Room room = rooms.get(roomId);
+
+        if (room == null) {
+            throw new NotFoundException("Room not found");
+        }
+
+        if (!sensors.containsKey(sensorId)) {
+            throw new NotFoundException("Sensor not found");
+        }
+
+        // remove from sensor map
+        sensors.remove(sensorId);
+
+        // remove from room's sensor list
+        room.getSensorIds().remove(sensorId);
+
+        return Response.ok("Sensor deleted").build();
+    }
 }
