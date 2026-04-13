@@ -99,7 +99,10 @@ public class RoomResource {
         List<Sensor> roomSensors = new ArrayList<>();
 
         for (String sensorId : room.getSensorIds()) {
-            roomSensors.add(sensors.get(sensorId));
+            Sensor s = sensors.get(sensorId);
+            if (s != null) {
+                roomSensors.add(s);
+            }
         }
 
         return Response.ok(roomSensors).build();
