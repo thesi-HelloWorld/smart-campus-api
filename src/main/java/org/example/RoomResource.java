@@ -18,8 +18,17 @@ public class RoomResource {
         return Response.ok(rooms.values()).build();
     }
 
-    @POST //adds room
+    @POST
     public Response createRoom(Room room) {
+
+        if (room.getId() == null || room.getName() == null) {
+            throw new WebApplicationException("Invalid room data", 400);
+        }
+
+        if (rooms.containsKey(room.getId())) {
+            throw new WebApplicationException("Room already exists", 409);
+        }
+
         rooms.put(room.getId(), room);
         return Response.status(Response.Status.CREATED).entity(room).build();
     }
@@ -61,6 +70,14 @@ public class RoomResource {
 
         if (room == null) {
             throw new NotFoundException("Room not found");
+        }
+
+        if (sensor.getId() == null || sensor.getType() == null) {
+            throw new WebApplicationException("Invalid sensor data", 400);
+        }
+
+        if (sensors.containsKey(sensor.getId())) {
+            throw new WebApplicationException("Sensor already exists", 409);
         }
 
         sensors.put(sensor.getId(), sensor);
