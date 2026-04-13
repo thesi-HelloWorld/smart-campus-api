@@ -62,6 +62,26 @@ public class RoomResource {
         return Response.ok("Room deleted").build();
     }
 
+    @PUT
+    @Path("/{id}")
+    public Response updateRoom(@PathParam("id") String id, Room updatedRoom) {
+
+        Room existingRoom = rooms.get(id);
+
+        if (existingRoom == null) {
+            throw new NotFoundException("Room not found");
+        }
+
+        if (updatedRoom.getName() == null) {
+            throw new WebApplicationException("Invalid room data", 400);
+        }
+
+        existingRoom.setName(updatedRoom.getName());
+        existingRoom.setCapacity(updatedRoom.getCapacity());
+
+        return Response.ok(existingRoom).build();
+    }
+
     @POST
     @Path("/{id}/sensors")
     public Response addSensor(@PathParam("id") String roomId, Sensor sensor) {
