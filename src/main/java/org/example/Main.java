@@ -12,7 +12,7 @@ public class Main {
 
     public static HttpServer startServer() {
         final ResourceConfig rc = new ResourceConfig()
-                .register(RoomResource.class); // explicitly register your endpoint
+                .packages("org.example"); // explicitly register your endpoint
 
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
     }
