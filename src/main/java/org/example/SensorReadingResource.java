@@ -6,10 +6,6 @@ import java.util.*;
 
 public class SensorReadingResource {
 
-    public static Map<String, Sensor> getSensorsMap() {
-        return sensors;
-    }
-
     private static Map<String, List<SensorReading>> readings = new HashMap<>();
     private static Map<String, Sensor> sensors = SensorResource.getSensorsMap();
 
