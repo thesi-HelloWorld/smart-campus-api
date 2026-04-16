@@ -62,4 +62,9 @@ public class SensorResource {
         return Response.ok("Sensor deleted").build();
     }
 
+    @Path("/{sensorId}/readings")
+    public SensorReadingResource getSensorReadingResource(@PathParam("sensorId") String sensorId) {
+        return new SensorReadingResource(sensorId);
+    }
+
 }
