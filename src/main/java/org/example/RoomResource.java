@@ -9,9 +9,9 @@ import java.util.*;
 @Consumes(MediaType.APPLICATION_JSON)
 public class RoomResource {
 
-    private static Map<String, Room> rooms = new HashMap<>();
+    public static Map<String, Room> rooms = new HashMap<>();
 
-    private static Map<String, Sensor> sensors = new HashMap<>();
+    public static Map<String, Sensor> sensors = new HashMap<>();
 
     @GET //shows room
     public Response getRooms() {
@@ -82,102 +82,4 @@ public class RoomResource {
         return Response.ok(existingRoom).build();
     }
 
-    @POST
-    @Path("/{id}/sensors")
-    public Response addSensor(@PathParam("id") String roomId, Sensor sensor) {
-
-        Room room = rooms.get(roomId);
-
-        if (room == null) {
-            throw new NotFoundException("Room not found");
-        }
-
-        if (sensor.getId() == null || sensor.getType() == null) {
-            throw new WebApplicationException("Invalid sensor data", 400);
-        }
-
-        if (sensors.containsKey(sensor.getId())) {
-            throw new WebApplicationException("Sensor already exists", 409);
-        }
-
-        sensors.put(sensor.getId(), sensor);
-        room.getSensorIds().add(sensor.getId());
-
-        return Response.status(Response.Status.CREATED).entity(sensor).build();
-    }
-
-    @GET
-    @Path("/{id}/sensors")
-    public Response getSensors(@PathParam("id") String roomId) {
-
-        Room room = rooms.get(roomId);
-
-        if (room == null) {
-            throw new NotFoundException("Room not found");
-        }
-
-        List<Sensor> roomSensors = new ArrayList<>();
-
-        for (String sensorId : room.getSensorIds()) {
-            Sensor s = sensors.get(sensorId);
-            if (s != null) {
-                roomSensors.add(s);
-            }
-        }
-
-        return Response.ok(roomSensors).build();
-    }
-
-    @DELETE
-    @Path("/{roomId}/sensors/{sensorId}")
-    public Response deleteSensor(
-            @PathParam("roomId") String roomId,
-            @PathParam("sensorId") String sensorId) {
-
-        Room room = rooms.get(roomId);
-
-        if (room == null) {
-            throw new NotFoundException("Room not found");
-        }
-
-        if (!sensors.containsKey(sensorId)) {
-            throw new NotFoundException("Sensor not found");
-        }
-
-        // remove from sensor map
-        sensors.remove(sensorId);
-
-        // remove from room's sensor list
-        room.getSensorIds().remove(sensorId);
-
-        return Response.ok("Sensor deleted").build();
-    }
-
-    @PUT
-    @Path("/{roomId}/sensors/{sensorId}")
-    public Response updateSensor(
-            @PathParam("roomId") String roomId,
-            @PathParam("sensorId") String sensorId,
-            Sensor updatedSensor) {
-
-        Room room = rooms.get(roomId);
-
-        if (room == null) {
-            throw new NotFoundException("Room not found");
-        }
-
-        Sensor sensor = sensors.get(sensorId);
-
-        if (sensor == null) {
-            throw new NotFoundException("Sensor not found");
-        }
-
-        if (updatedSensor.getType() == null) {
-            throw new WebApplicationException("Invalid sensor data", 400);
-        }
-
-        sensor.setType(updatedSensor.getType());
-
-        return Response.ok(sensor).build();
-    }
 }
