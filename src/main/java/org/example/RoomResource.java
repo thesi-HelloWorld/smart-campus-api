@@ -9,9 +9,11 @@ import java.util.*;
 @Consumes(MediaType.APPLICATION_JSON)
 public class RoomResource {
 
-    public static Map<String, Room> rooms = new HashMap<>();
+    public static Map<String, Room> getRoomsMap() {
+        return rooms;
+    }
 
-    public static Map<String, Sensor> sensors = new HashMap<>();
+    public static Map<String, Room> rooms = new HashMap<>();
 
     @GET //shows room
     public Response getRooms() {
