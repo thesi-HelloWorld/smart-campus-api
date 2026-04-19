@@ -27,6 +27,12 @@ public class SensorReadingResource {
         if (!sensors.containsKey(sensorId)) {
             throw new NotFoundException("Sensor not found");
         }
+        
+        Sensor sensor = sensors.get(sensorId);
+        
+        if (sensor.getStatus() != null && sensor.getStatus().equals("MAINTENANCE")) {
+        throw new SensorUnavailableException("Sensor is under maintenance");
+        }
 
         readings.putIfAbsent(sensorId, new ArrayList<>());
         readings.get(sensorId).add(reading);
