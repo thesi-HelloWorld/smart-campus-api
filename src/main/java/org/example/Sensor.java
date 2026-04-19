@@ -8,7 +8,6 @@ public class Sensor {
     private String status;
     private String roomId;
 
-
     public Sensor() {}
 
     public Sensor(String id, String type, double value) {
