@@ -57,7 +57,7 @@ public class RoomResource {
         }
 
         if (!room.getSensorIds().isEmpty()) {
-            throw new WebApplicationException("Room has sensors", 409);
+            throw new RoomNotEmptyException("Room has sensors");
         }
 
         rooms.remove(id);

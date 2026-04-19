@@ -23,12 +23,14 @@ public class Sensor {
     public String getType() { return type; }
     public void setType(String type) { this.type = type; }
 
-    public double getValue() { return currentValue; }
-    public void setValue(double value) { this.currentValue = value; }
+    public double getCurrentValue() { return currentValue; }
+    public void setCurrentValue(double currentValue) { this.currentValue = currentValue; }
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
 
     public String getRoomId() { return roomId; }
     public void setRoomId(String roomId) { this.roomId = roomId; }
+    
+    
 }

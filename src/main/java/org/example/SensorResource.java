@@ -22,7 +22,7 @@ public class SensorResource {
         Room room = rooms.get(sensor.getRoomId());
 
         if (room == null) {
-            throw new NotFoundException("Room not found");
+            throw new LinkedResourceNotFoundException("Room not found");
         }
 
         sensors.put(sensor.getId(), sensor);
