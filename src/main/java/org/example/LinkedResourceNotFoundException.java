@@ -1,6 +1,6 @@
 package org.example;
 
-public class LinkedResourceNotException extends RuntimeException {
+public class LinkedResourceNotFoundException extends RuntimeException {
     public LinkedResourceNotFoundException(String message){
         super(message);
     }
