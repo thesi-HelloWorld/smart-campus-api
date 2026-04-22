@@ -60,3 +60,18 @@ curl -X GET "http://localhost:8080/api/v1/sensors?type=Temperature"
 curl -X POST http://localhost:8080/api/v1/sensors/TEMP-001/readings \
 -H "Content-Type: application/json" \
 -d '{"id": "reading-123", "timestamp": 1713980000, "value": 22.5}'
+
+
+**6. Retrieve a specific room's details**
+
+curl -X GET http://localhost:8080/api/v1/rooms/CS-101
+
+
+**7. Delete a sensor**
+
+curl -X DELETE http://localhost:8080/api/v1/sensors/TEMP-001
+
+
+**8. View all historical readings for different sensors**
+
+curl -X GET http://localhost:8080/api/v1/sensors/TEMP-001/readings
