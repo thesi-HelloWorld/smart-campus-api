@@ -55,10 +55,12 @@ public class SensorResource {
             throw new NotFoundException("Sensor not found");
         }
 
-        Room room = rooms.get(sensor.getRoomId());
+        if (sensor.getRoomId() != null) {
+            Room room = rooms.get(sensor.getRoomId());
 
-        if (room != null) {
-            room.getSensorIds().remove(id);
+            if (room != null && room.getSensorIds() != null) {
+                room.getSensorIds().remove(id);
+            }
         }
 
         sensors.remove(id);

@@ -5,6 +5,7 @@ import jakarta.ws.rs.ext.Provider;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+@Provider
 public class LoggingFilter implements ContainerRequestFilter, ContainerResponseFilter {
     private static final Logger logger = Logger.getLogger(LoggingFilter.class.getName());
 
