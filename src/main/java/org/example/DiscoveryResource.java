@@ -4,7 +4,8 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import java.util.*;
 
-@Path("/")
+@Path("")
+@Produces(MediaType.APPLICATION_JSON)
 public class DiscoveryResource {
 
     @GET

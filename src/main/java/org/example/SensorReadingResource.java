@@ -4,6 +4,9 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import java.util.*;
 
+@Path("")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class SensorReadingResource {
 
     private static Map<String, List<SensorReading>> readings = new HashMap<>();
@@ -30,14 +33,14 @@ public class SensorReadingResource {
         
         Sensor sensor = sensors.get(sensorId);
         
-        if (sensor.getStatus() != null && sensor.getStatus().equals("MAINTENANCE")) {
-        throw new SensorUnavailableException("Sensor is under maintenance");
+        if ("MAINTENANCE".equals(sensor.getStatus())) {
+            throw new SensorUnavailableException("Sensor is under maintenance");
         }
 
         readings.putIfAbsent(sensorId, new ArrayList<>());
         readings.get(sensorId).add(reading);
 
-        sensors.get(sensorId).setCurrentValue(reading.getValue());
+        sensor.setCurrentValue(reading.getValue());
 
         return Response.status(Response.Status.CREATED).entity(reading).build();
     }
