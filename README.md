@@ -111,4 +111,18 @@ Thus Query parameters are preferred as they are optional, easy to combine other 
 
 ### Part 4
 **Question 01**
+
 The Sub-Resource Locator pattern enforces the single responsibility principle and improves code maintainability drastically. If all nested paths were defined in a single SensorResource class, which will become difficult to read, test and debug. In this implementation, sensor readings are managed by a dedicated SensorReadingReasource, while main Sensor Resource which only handles sensor-related operations. This separation allows for cleaner code, easier testing and potential reuse of sub-resource logic across different parts of application.
+
+### Part 5
+**Question 01**
+
+A 404 Not Found response generally indicates that the requested endpoint or resource does not exist. Whereas, when a client makes a POST to a valid endpoint with correct JSON syntax, but the payload consists a foreign key that may not be in the system, thus 404 is misleading. Using 422 Unprocessable Entity is more appropriate as it indicates that the server acknowledges the request but is unable to process due to logical error in the data. Thus, making the response more accurate and meaningful for the client.
+
+**Question 02**
+
+Exposing internal Java stack traces results in a severe vulnerability namely, Information Disclosure. Stack traces provide attackers with a detailed blueprint of the application's internal architecture. The attacker can gain information such as which frameworks, libraries are being used, internal packages and so on. They use this reconnaissance data to search for known common vulnerabilities and exposures, allowing them to craft highly targeted exploits. It is considered best practice to hide detailed error information and instead return generic error messages while logging the full details internally as a preferred solution.
+
+**Question 03**
+
+Using JAX-RS filters applies the concept of Aspect-Oriented Programming (AOP) to solve corss-cutting concerns. Instead of adding logging statements to each and every resource method, filters automatically intercept all incoming requests and outgoing responses. Manually inserting Logger.info() would pollute core business logic with infrastructure code, with likely human errors. This guarantees consistent, bulletproof logging across all API from a single, obtaining resource methods clean and focused solely on processing data.
