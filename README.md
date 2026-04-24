@@ -109,3 +109,6 @@ In this implementation, filtering sensors by type is handled by @QueryParam, whi
 Filtering is done using path parameters which would make the API less flexible and harder to extend. Eg: /sensors/type/CO2, path parameters are intended to identify specific resources, not to filter collections.
 Thus Query parameters are preferred as they are optional, easy to combine other filters and aligned with REST principles for searching and filtering data.
 
+### Part 4
+**Question 01**
+The Sub-Resource Locator pattern enforces the single responsibility principle and improves code maintainability drastically. If all nested paths were defined in a single SensorResource class, which will become difficult to read, test and debug. In this implementation, sensor readings are managed by a dedicated SensorReadingReasource, while main Sensor Resource which only handles sensor-related operations. This separation allows for cleaner code, easier testing and potential reuse of sub-resource logic across different parts of application.
