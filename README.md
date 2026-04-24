@@ -75,3 +75,16 @@ curl -X DELETE http://localhost:8080/api/v1/sensors/TEMP-001
 **8. View all historical readings for different sensors**
 
 curl -X GET http://localhost:8080/api/v1/sensors/TEMP-001/readings
+
+----
+
+## 4. Conceptual report
+### Part 1
+**Question 01**
+
+Originally JAX-RS uses a “per-request” lifecycle by default, meaning an instance of a resource class is created for every incoming HTTP request and destroyed after a response has been sent. Thus any instance variable such as a regular HashMap or ArrayList would be removed, resulting in data loss. To maintain data across multiple requests must be declared as static. 
+However, as many requests may be accessed at the same moment, this increases the risk of race conditions. As a solution we acquire thread-safe collections or synchronization blocks to ensure data consistency.
+
+**Question 02**
+
+HATEOS transforms an API from a static directory into a dynamic state machine. It is considered a hallmark of advanced RESTful design as the server embeds URls to related resources and actions directly within JSON response. This gives advantages to the client developers as the need for hardcoding specific URLs based on static documentation. If the backend developer wants to change the URL structure, the application will not break, as endpoints are resolved at runtime directly from server’s responses.
