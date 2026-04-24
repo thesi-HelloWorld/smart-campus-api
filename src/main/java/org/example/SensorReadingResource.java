@@ -4,7 +4,6 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import java.util.*;
 
-@Path("")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class SensorReadingResource {
