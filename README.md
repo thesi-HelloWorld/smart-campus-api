@@ -88,3 +88,13 @@ However, as many requests may be accessed at the same moment, this increases the
 **Question 02**
 
 HATEOS transforms an API from a static directory into a dynamic state machine. It is considered a hallmark of advanced RESTful design as the server embeds URls to related resources and actions directly within JSON response. This gives advantages to the client developers as the need for hardcoding specific URLs based on static documentation. If the backend developer wants to change the URL structure, the application will not break, as endpoints are resolved at runtime directly from server’s responses.
+
+### Part 2
+**Question  01**
+
+Returning just the room IDs reduces the size of the response, which would make initial API call faster and save network bandwidth. However, it introduces the “N+1 problem” for the client, as the client might require more information such as room name or capacity. Thus, increasing latency and adding complexity to the client-side logic. Conversely, returning full room objects increases the playload size but provides all the required information in a single response This will decrease the number of API calls and make it simpler for clients to process and display data efficiently. In most scenarios, returning full objects is more convenient for the client despite the slightly higher bandwidth usage.
+
+**Question 02**
+
+The DELETE operation is idempotent. Idempotency guarantees that performing the same request many times results in the same final state on the server. In this particular implementation, if a client deletes a room (for ex: DELETE /rooms/CS-101), the very first request successfully removes the room from the map and returns a 200 OK. If the request is performed again, the server checks the map, fails and returns a 404 Not Found Exception. The state of the system will remain unchanged, the room is still deleted. Thus, the DELETE operation satisfies the definition of idempotency.
+
