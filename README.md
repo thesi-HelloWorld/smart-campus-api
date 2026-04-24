@@ -98,3 +98,14 @@ Returning just the room IDs reduces the size of the response, which would make i
 
 The DELETE operation is idempotent. Idempotency guarantees that performing the same request many times results in the same final state on the server. In this particular implementation, if a client deletes a room (for ex: DELETE /rooms/CS-101), the very first request successfully removes the room from the map and returns a 200 OK. If the request is performed again, the server checks the map, fails and returns a 404 Not Found Exception. The state of the system will remain unchanged, the room is still deleted. Thus, the DELETE operation satisfies the definition of idempotency.
 
+### Part 3
+**Question 01**
+
+The @Consumes annotation enforces strict content negotiation. It ensures that the API only accepts requests with a JSON payload. This is enforced by JAX-RS through content negotiation. If a client attempts to send data in different formats such as text/xml, the framework detects that the request’s Content-Type does not match the expected format. Thus, the request will be rejected, and the server returns a 415 Unsupported Media Type response. This prevents parsing errors and ensures the application only processes data it is explicitly designed to handle.
+
+**Question 02**
+
+In this implementation, filtering sensors by type is handled by @QueryParam, which is more suitable for optional filtering operations. This allows clients to preserve results without the need for changing the structure of the endpoint. Eg: /sensors?type=CO2, returns all sensors.
+Filtering is done using path parameters which would make the API less flexible and harder to extend. Eg: /sensors/type/CO2, path parameters are intended to identify specific resources, not to filter collections.
+Thus Query parameters are preferred as they are optional, easy to combine other filters and aligned with REST principles for searching and filtering data.
+
